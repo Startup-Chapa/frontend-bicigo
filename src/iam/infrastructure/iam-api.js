@@ -17,7 +17,9 @@ export const IAM_ENDPOINTS = {
 };
 
 class IamApi extends BaseApi {
-    /** @param {string} email @param {string} password */
+    /** @param {string} email
+     * @param {string} password
+     */
     signIn(email, password) {
         return this.http.post(IAM_ENDPOINTS.signIn, { email, password });
     }
@@ -38,7 +40,9 @@ class IamApi extends BaseApi {
         return this.http.post(IAM_ENDPOINTS.forgotPassword, { email });
     }
 
-    /** @param {string} token @param {string} newPassword */
+    /** @param {string} token
+     * @param {string} newPassword
+     */
     resetPassword(token, newPassword) {
         return this.http.post(IAM_ENDPOINTS.resetPassword, { token, newPassword });
     }
@@ -48,17 +52,22 @@ class IamApi extends BaseApi {
         return this.http.get(IAM_ENDPOINTS.user(userId));
     }
 
-    /** @param {string} userId @param {Object} data */
+    /** @param {string} userId
+     * @param {Object} data */
     updateUser(userId, data) {
         return this.http.put(IAM_ENDPOINTS.user(userId), data);
     }
 
-    /** @param {string} userId @param {Object} data */
+    /** @param {string} userId
+     * @param {Object} data
+     */
     updateProfile(userId, data) {
         return this.http.put(IAM_ENDPOINTS.userProfile(userId), data);
     }
 
-    /** @param {string} userId @param {string} currentPassword @param {string} newPassword */
+    /** @param {string} userId
+     * @param {string} currentPassword
+     * @param {string} newPassword */
     changePassword(userId, currentPassword, newPassword) {
         return this.http.post(IAM_ENDPOINTS.changePassword(userId), { currentPassword, newPassword });
     }
