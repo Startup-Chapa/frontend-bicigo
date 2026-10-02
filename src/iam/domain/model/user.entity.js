@@ -6,6 +6,13 @@ export const UserStatus = Object.freeze({
 });
 
 export class User extends BaseEntity {
+    /** @type {string} @private */ #firstName;
+    /** @type {string} @private */ #lastName;
+    /** @type {string} @private */ #email;
+    /** @type {string} @private */ #phone;
+    /** @type {string} @private */ #status;
+    /** @type {?import('./user-profile.entity.js').UserProfile} @private */ #profile;
+
     constructor({ id = null, firstName = '', lastName = '', email = '', phone = '', status = UserStatus.ACTIVE, profile = null } = {}) {
         super({ id });
         this.#firstName = firstName;
@@ -16,14 +23,25 @@ export class User extends BaseEntity {
         this.#profile   = profile;
     }
 
-    get fullName() { return [this.#firstName, this.#lastName].filter(Boolean).join(' '); }
+    /** @returns {string} */ get firstName() { return this.#firstName; }
+    /** @returns {string} */ get lastName()  { return this.#lastName; }
+    /** @returns {string} */ get email()     { return this.#email; }
+    /** @returns {string} */ get phone()     { return this.#phone; }
+    /** @returns {string} */ get status()    { return this.#status; }
+    /** @returns {?import('./user-profile.entity.js').UserProfile} */ get profile() { return this.#profile; }
+
+    get fullName() {
+        return [this.#firstName, this.#lastName].filter(Boolean).join(' ');
+    }
 
     get initials() {
         const letters = [this.#firstName, this.#lastName].filter(Boolean).map(n => n[0]).join('');
         return (letters || this.#email[0] || 'U').slice(0, 2).toUpperCase();
     }
 
-    get isSuspended() { return this.#status === UserStatus.SUSPENDED; }
+    get isSuspended() {
+        return this.#status === UserStatus.SUSPENDED;
+    }
 
     clone(changes = {}) {
         return new User({
