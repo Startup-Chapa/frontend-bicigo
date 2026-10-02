@@ -4,8 +4,7 @@ import LanguageSwitcher from "./language-switcher.vue";
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import FooterContent from "./footer-content.vue";
-// To import when IAM is implemented:
-// import AuthenticationSection from "../../../iam/presentation/components/authentication-section.vue";
+import AuthenticationSection from "../../../iam/presentation/components/authentication-section.vue";
 const { t } = useI18n();
 
 const drawer = ref(false);
@@ -38,8 +37,7 @@ const items = [
             <router-link :to="item.to" :class="slotProps['class']">{{ t(item.label) }}</router-link>
           </pv-button>
         </div>
-        <!-- To add when IAM is implemented -->
-        <!--<authentication-section/>-->
+        <authentication-section/>
         <language-switcher/>
       </template>
     </pv-toolbar>
