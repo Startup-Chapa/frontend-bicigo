@@ -1,0 +1,21 @@
+{
+  "common": {
+    "cancel": "Cancel"
+  },
+  "option": {
+    "home": "Home",
+    "about": "About",
+    "categories": "Categories",
+    "tutorials": "Tutorials"
+  },
+  "authoring-phrase": {
+    "intro": "Made with",
+    "use": "using",
+    "author": "by {brand}"
+  },
+  "page-not-found": {
+    "title": "Page not found",
+    "content": "The route does not exist.",
+    "go-home": "Back to home"
+  }
+}
