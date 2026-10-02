@@ -11,16 +11,14 @@ export class User extends BaseEntity {
     /** @type {string} @private */ #email;
     /** @type {string} @private */ #phone;
     /** @type {string} @private */ #status;
-    /** @type {?import('./user-profile.entity.js').UserProfile} @private */ #profile;
 
-    constructor({ id = null, firstName = '', lastName = '', email = '', phone = '', status = UserStatus.ACTIVE, profile = null } = {}) {
+    constructor({ id = null, firstName = '', lastName = '', email = '', phone = '', status = UserStatus.ACTIVE } = {}) {
         super({ id });
         this.#firstName = firstName;
         this.#lastName  = lastName;
         this.#email     = email;
         this.#phone     = phone;
         this.#status    = status;
-        this.#profile   = profile;
     }
 
     /** @returns {string} */ get firstName() { return this.#firstName; }
@@ -28,7 +26,6 @@ export class User extends BaseEntity {
     /** @returns {string} */ get email()     { return this.#email; }
     /** @returns {string} */ get phone()     { return this.#phone; }
     /** @returns {string} */ get status()    { return this.#status; }
-    /** @returns {?import('./user-profile.entity.js').UserProfile} */ get profile() { return this.#profile; }
 
     get fullName() {
         return [this.#firstName, this.#lastName].filter(Boolean).join(' ');
@@ -47,7 +44,6 @@ export class User extends BaseEntity {
         return new User({
             id: this.id, firstName: this.#firstName, lastName: this.#lastName,
             email: this.#email, phone: this.#phone, status: this.#status,
-            profile: this.#profile,
             ...changes
         });
     }

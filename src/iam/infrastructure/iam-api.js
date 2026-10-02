@@ -12,7 +12,6 @@ export const IAM_ENDPOINTS = {
     forgotPassword: '/authentication/forgot-password', // POST { email }                                        -> 200 (always)
     resetPassword:  '/authentication/reset-password',  // POST { token, newPassword }                           -> 200 | 400
     user:           (userId) => `/users/${userId}`,                 // GET -> User resource | PUT { firstName, lastName, email, phone, currentPassword? } -> User resource
-    userProfile:    (userId) => `/users/${userId}/profile`,         // PUT { documentType, documentNumber, photoUrl, emergencyContact } -> UserProfile resource
     changePassword: (userId) => `/users/${userId}/change-password`  // POST { currentPassword, newPassword } -> 204
 };
 
@@ -58,12 +57,6 @@ class IamApi extends BaseApi {
         return this.http.put(IAM_ENDPOINTS.user(userId), data);
     }
 
-    /** @param {string} userId
-     * @param {Object} data
-     */
-    updateProfile(userId, data) {
-        return this.http.put(IAM_ENDPOINTS.userProfile(userId), data);
-    }
 
     /** @param {string} userId
      * @param {string} currentPassword

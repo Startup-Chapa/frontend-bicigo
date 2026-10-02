@@ -46,9 +46,9 @@ function seedUsers() {
     if (users) return users;
     const seeded = [
         { userId: uuid(), firstName: 'Demo', lastName: 'BiciGo', email: 'demo@bicigo.com', phone: '987654321',
-            status: 'ACTIVE', password: 'BiciGo123', profile: null },
+            status: 'ACTIVE', password: 'BiciGo123' },
         { userId: uuid(), firstName: 'Cuenta', lastName: 'Suspendida', email: 'suspended@bicigo.com', phone: '',
-            status: 'SUSPENDED', password: 'BiciGo123', profile: null }
+            status: 'SUSPENDED', password: 'BiciGo123' }
     ];
     save(USERS_KEY, seeded);
     return seeded;
@@ -72,7 +72,7 @@ export class IamMockApi {
         const user = {
             userId: uuid(), firstName: data.firstName, lastName: data.lastName,
             email: data.email.trim(), phone: data.phone || '', status: 'ACTIVE',
-            password: data.password, profile: null
+            password: data.password
         };
         save(USERS_KEY, [...users, user]);
         return respond(publicUser(user), 201);
@@ -127,23 +127,6 @@ export class IamMockApi {
         };
         save(USERS_KEY, users.map(u => u.userId === userId ? updated : u));
         return respond(publicUser(updated));
-    }
-
-    async updateProfile(userId, data) {
-        await delay();
-        const users = seedUsers();
-        const current = users.find(u => u.userId === userId);
-        if (!current) throw fail(404, 'USER_NOT_FOUND');
-        const profile = {
-            profileId: current.profile?.profileId ?? uuid(),
-            userId,
-            documentType: data.documentType || '',
-            documentNumber: data.documentNumber || '',
-            photoUrl: data.photoUrl || '',
-            emergencyContact: data.emergencyContact || ''
-        };
-        save(USERS_KEY, users.map(u => u.userId === userId ? { ...u, profile } : u));
-        return respond(profile);
     }
 
     async changePassword(userId, currentPassword, newPassword) {

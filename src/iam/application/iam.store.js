@@ -119,30 +119,13 @@ export const useIamStore = defineStore('iam', () => {
         try {
             const res = await iamApi.updateUser(currentUser.value.id, data)
             const updated = UserAssembler.toEntityFromResource(res.data)
-            setCurrentUser(updated.profile ? updated : updated.clone({ profile: currentUser.value.profile }))
+            setCurrentUser(updated)
             return true
         } catch (e) {
             const code = e?.response?.data?.code
             if (e?.response?.status === 409)               errors.value = ['emailTaken']
             else if (code === 'INVALID_CURRENT_PASSWORD')  errors.value = ['invalidCurrentPassword']
             else                                           errors.value = ['updateError']
-            return false
-        } finally {
-            loading.value = false
-        }
-    }
-
-    // UserProfile
-    async function updateProfile(data) {
-        if (!currentUser.value?.id) return false
-        errors.value = []
-        loading.value = true
-        try {
-            const res = await iamApi.updateProfile(currentUser.value.id, data)
-            setCurrentUser(currentUser.value.clone({ profile: UserAssembler.toProfileFromResource(res.data) }))
-            return true
-        } catch {
-            errors.value = ['updateError']
             return false
         } finally {
             loading.value = false
