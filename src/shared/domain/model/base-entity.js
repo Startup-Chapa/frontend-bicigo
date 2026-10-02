@@ -1,23 +1,27 @@
 /**
- * Base class for domain entities. Holds the identity shared by every entity.
+ * Shared base class for all domain entities.
+ * Provides a common identifier property inherited by every bounded context entity.
  *
  * @class BaseEntity
  */
 export class BaseEntity {
-    /**
-     * @type {string|number|null}
-     * @private
-     */
-    #id;
+  /**
+   * @type {?number}
+   * @private
+   */
+  #id;
 
-    /**
-     * @param {Object} [params={}]
-     * @param {string|number|null} [params.id=null] - Entity identifier.
-     */
-    constructor({ id = null } = {}) {
-        this.#id = id;
-    }
+  /**
+   * @param {Object} [params={}] - Entity attributes.
+   * @param {?number} [params.id=null] - Entity identifier.
+   */
+  constructor({ id = null } = {}) {
+    this.#id = id
+  }
 
-    /** @returns {string|number|null} */
-    get id() { return this.#id; }
+  /**
+   * Gets the entity identifier.
+   * @returns {?number}
+   */
+  get id() { return this.#id; }
 }

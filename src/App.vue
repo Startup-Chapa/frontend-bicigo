@@ -1,7 +1,8 @@
 <script setup>
-import Layout from "./shared/presentation/components/layout.vue";
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <layout />
+  <RouterView />
+  <pv-toast position="top-right" />
 </template>
