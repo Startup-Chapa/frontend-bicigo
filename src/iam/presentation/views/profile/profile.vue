@@ -73,7 +73,6 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 import { useIamStore } from '../../../application/iam.store.js'
-import {$t} from "@primeuix/styled";
 
 const iamStore = useIamStore()
 const activeTab = ref('profile')

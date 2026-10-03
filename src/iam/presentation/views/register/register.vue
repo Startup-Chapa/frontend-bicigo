@@ -60,7 +60,7 @@
           <div class="auth-field">
             <pv-float-label>
               <pv-password
-                  id="reg-password"
+                  input-id="reg-password"
                   v-model="form.password"
                   toggle-mask
                   autocomplete="new-password"
@@ -85,20 +85,6 @@
               />
               <label for="reg-phone">{{ $t('auth.phoneNumber') }}</label>
             </pv-float-label>
-          </div>
-
-          <!-- Tipo de cuenta: Plan de Tarifa / Suscripción Pro -->
-          <div class="auth-field">
-            <p style="font-size:0.82rem;font-weight:600;color:var(--color-neutral-medium);margin-bottom:0.4rem">{{ $t('auth.accountType') }}</p>
-            <pv-select-button
-                v-model="form.plan"
-                :options="planOptions"
-                option-label="label"
-                option-value="value"
-                :invalid="v$.plan.$error"
-                aria-label="Account type"
-            />
-            <span v-if="v$.plan.$error" class="error-msg">{{ $t('auth.accountTypeRequired') }}</span>
           </div>
 
           <p style="font-size:0.8rem;color:var(--color-neutral-medium);margin-bottom:0.75rem">
@@ -134,7 +120,6 @@ import { useI18n } from 'vue-i18n'
 import { useIamStore, PLANS } from '../../../application/iam.store.js'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
-import {$t} from "@primeuix/styled";
 
 const { t } = useI18n()
 

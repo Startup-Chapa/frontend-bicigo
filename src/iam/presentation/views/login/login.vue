@@ -32,7 +32,7 @@
           <div class="auth-field">
             <pv-float-label>
               <pv-password
-                  id="login-password"
+                  input-id="login-password"
                   v-model="form.password"
                   :feedback="false"
                   toggle-mask
@@ -85,12 +85,12 @@
 </template>
 
 <script setup>
+
 import { reactive } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
 import { useIamStore, PLANS } from '../../../application/iam.store.js'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
-import {$t} from "@primeuix/styled";
 
 const router   = useRouter()
 const iamStore = useIamStore()

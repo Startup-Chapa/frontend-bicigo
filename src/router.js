@@ -32,7 +32,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, _from, next) => {
-    document.title = to.meta.title ? `${to.meta.title} | GoldCheck` : 'GoldCheck - GoldMetrics'
+    document.title = to.meta.title ? `${to.meta.title} | Bicigo` : 'BiciGo'
 
     if (to.meta.requiresAuth) {
         const iamStore = useIamStore()
