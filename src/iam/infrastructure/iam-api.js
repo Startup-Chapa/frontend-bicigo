@@ -25,6 +25,10 @@ class IamApi extends BaseApi {
   updateProfile(id, data) {
     return this.#users.patch(id, data)
   }
+
+  requestPasswordReset(email) {
+    return this.#users.getAll({ email })
+  }
 }
 
 export const iamApi = new IamApi()

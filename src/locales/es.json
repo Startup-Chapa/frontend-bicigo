@@ -41,7 +41,14 @@
     "registerLink": "Regístrate",
     "registerError": "Error al crear la cuenta. Inténtalo de nuevo.",
     "or": "o",
-    "fieldRequired": "Este campo es obligatorio."
+    "fieldRequired": "Este campo es obligatorio.",
+    "forgotPasswordTitle": "¿Olvidaste tu contraseña?",
+    "forgotPasswordDesc": "Ingresa tu correo y te enviaremos un enlace para restablecerla.",
+    "sendResetLink": "Enviar enlace",
+    "resetEmailSentTitle": "Revisa tu correo",
+    "resetEmailSentDesc": "Si existe una cuenta con ese correo, recibirás un enlace para restablecer tu contraseña.",
+    "backToLogin": "Volver a iniciar sesión",
+    "resetError": "No pudimos enviar el correo. Inténtalo de nuevo."
   },
   "profile": {
     "hello": "Hola,",

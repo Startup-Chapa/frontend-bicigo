@@ -41,7 +41,14 @@
     "registerLink": "Sign up",
     "registerError": "Error creating account. Please try again.",
     "or": "or",
-    "fieldRequired": "This field is required."
+    "fieldRequired": "This field is required.",
+    "forgotPasswordTitle": "Forgot your password?",
+    "forgotPasswordDesc": "Enter your email and we'll send you a link to reset it.",
+    "sendResetLink": "Send reset link",
+    "resetEmailSentTitle": "Check your email",
+    "resetEmailSentDesc": "If an account exists with that email, you'll receive a link to reset your password.",
+    "backToLogin": "Back to log in",
+    "resetError": "We couldn't send the email. Please try again."
   },
   "profile": {
     "hello": "Hello,",

@@ -17,6 +17,7 @@ export const useIamStore = defineStore('iam', () => {
   const isTarifa        = computed(() => currentUser.value?.plan === PLANS.TARIFA)
   const isPro           = computed(() => currentUser.value?.plan === PLANS.PRO)
 
+  // Rehydrate user from localStorage on cold load
   const savedUser = localStorage.getItem('bicigo_user')
   if (savedUser) {
     try { currentUser.value = JSON.parse(savedUser) } catch {}
@@ -85,6 +86,20 @@ export const useIamStore = defineStore('iam', () => {
     }
   }
 
+  async function requestPasswordReset(email) {
+    errors.value = []
+    loading.value = true
+    try {
+      await iamApi.requestPasswordReset(email)
+      return true
+    } catch (e) {
+      errors.value = ['resetError']
+      return false
+    } finally {
+      loading.value = false
+    }
+  }
+
   function applyPlanUpgrade(planKey) {
     if (!currentUser.value) return
     if (!Object.values(PLANS).includes(planKey)) return
@@ -102,6 +117,6 @@ export const useIamStore = defineStore('iam', () => {
   return {
     currentUser, token, errors, loading,
     isAuthenticated, isTarifa, isPro,
-    login, register, updateProfile, applyPlanUpgrade, logout
+    login, register, updateProfile, requestPasswordReset, applyPlanUpgrade, logout
   }
 })

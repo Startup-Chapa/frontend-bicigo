@@ -11,7 +11,8 @@ const router = createRouter({
             path: '/auth',
             children: [
                 { path: 'login',    name: 'login',    component: () => import('./iam/presentation/views/login/login.vue') },
-                { path: 'register', name: 'register', component: () => import('./iam/presentation/views/register/register.vue') }
+                { path: 'register', name: 'register', component: () => import('./iam/presentation/views/register/register.vue') },
+                { path: 'forgot',   name: 'forgot-password',  component: () => import('./iam/presentation/views/forgot-password/forgot-password.vue') },
             ]
         },
 
