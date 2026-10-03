@@ -233,3 +233,23 @@ input:focus-visible {
   color: var(--color-neutral-medium);
   margin-bottom: 0.5rem;
 }
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-neutral-medium);
+  letter-spacing: 0.06em;
+  transition: border-color 0.2s;
+}
+
+.lang-toggle:hover { border-color: var(--color-primary-brand); }
+.lang-toggle span.active { color: var(--color-primary-dark); }
+.lang-sep { color: var(--color-border); }

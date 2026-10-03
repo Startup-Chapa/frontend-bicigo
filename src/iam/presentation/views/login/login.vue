@@ -49,11 +49,20 @@
 
           <div class="login-row">
             <RouterLink to="/auth/forgot" class="forgot-link">{{ $t('auth.forgotPassword') }}</RouterLink>
-            <div class="flex align-items-center gap-2">
-              <pv-checkbox v-model="form.remember" input-id="remember-me" :binary="true" />
-              <label for="remember-me" style="color: var(--color-neutral-medium); font-size: 0.82rem; cursor: pointer">
-                {{ $t('auth.rememberMe') }}
-              </label>
+
+            <div class="login-row-right">
+              <button type="button" class="lang-toggle" @click="toggleLocale" :aria-label="$t('nav.toggleLanguage')">
+                <span :class="{ active: locale === 'en' }">EN</span>
+                <span class="lang-sep" aria-hidden="true">|</span>
+                <span :class="{ active: locale === 'es' }">ES</span>
+              </button>
+
+              <div class="flex align-items-center gap-2">
+                <pv-checkbox v-model="form.remember" input-id="remember-me" :binary="true" />
+                <label for="remember-me" style="color: var(--color-neutral-medium); font-size: 0.82rem; cursor: pointer">
+                  {{ $t('auth.rememberMe') }}
+                </label>
+              </div>
             </div>
           </div>
 
@@ -85,15 +94,16 @@
 </template>
 
 <script setup>
-
 import { reactive } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useIamStore, PLANS } from '../../../application/iam.store.js'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 
 const router   = useRouter()
 const iamStore = useIamStore()
+const { locale } = useI18n()
 
 const form = reactive({ email: '', password: '', remember: false })
 
@@ -103,6 +113,10 @@ const rules = {
 }
 
 const v$ = useVuelidate(rules, form)
+
+function toggleLocale() {
+  locale.value = locale.value === 'es' ? 'en' : 'es'
+}
 
 async function handleLogin() {
   await v$.value.$validate()
@@ -121,8 +135,16 @@ async function handleLogin() {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-top: 0.5rem;
   font-size: 0.82rem;
+}
+
+.login-row-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .forgot-link {

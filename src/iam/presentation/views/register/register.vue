@@ -87,10 +87,18 @@
             </pv-float-label>
           </div>
 
-          <p style="font-size:0.8rem;color:var(--color-neutral-medium);margin-bottom:0.75rem">
-            {{ $t('auth.alreadyHaveAccount') }}
-            <RouterLink to="/auth/login" class="text-link">{{ $t('auth.login') }}</RouterLink>
-          </p>
+          <div class="account-row">
+            <p class="account-text">
+              {{ $t('auth.alreadyHaveAccount') }}
+              <RouterLink to="/auth/login" class="text-link">{{ $t('auth.login') }}</RouterLink>
+            </p>
+
+            <button type="button" class="lang-toggle" @click="toggleLocale" :aria-label="$t('nav.toggleLanguage')">
+              <span :class="{ active: locale === 'en' }">EN</span>
+              <span class="lang-sep" aria-hidden="true">|</span>
+              <span :class="{ active: locale === 'es' }">ES</span>
+            </button>
+          </div>
 
           <pv-button
               type="submit"
@@ -114,35 +122,32 @@
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { useIamStore, PLANS } from '../../../application/iam.store.js'
+import { useIamStore } from '../../../application/iam.store.js'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 
-const { t } = useI18n()
-
-const planOptions = computed(() => [
-  { label: t('auth.planTarifa'), value: PLANS.TARIFA },
-  { label: t('auth.planPro'),    value: PLANS.PRO }
-])
-
 const router   = useRouter()
 const iamStore = useIamStore()
+const { locale } = useI18n()
 
 const form = reactive({
-  email: '', username: '', password: '', phoneNumber: '', plan: ''
+  email: '', username: '', password: '', phoneNumber: ''
 })
 
 const rules = {
   email:    { required, email },
   username: { required },
-  password: { required },
-  plan:     { required }
+  password: { required }
 }
 
 const v$ = useVuelidate(rules, form)
+
+function toggleLocale() {
+  locale.value = locale.value === 'es' ? 'en' : 'es'
+}
 
 async function handleRegister() {
   await v$.value.$validate()
@@ -152,18 +157,30 @@ async function handleRegister() {
     email:       form.email,
     username:    form.username,
     password:    form.password,
-    phoneNumber: form.phoneNumber,
-    plan:        form.plan
+    phoneNumber: form.phoneNumber
   })
 
   if (!ok) return
 
-  if (iamStore.currentUser?.plan === PLANS.PRO) router.push({ name: 'pro-dashboard' })
-  else router.push({ name: 'tarifa-dashboard' })
+  router.push({ name: 'tarifa-dashboard' })
 }
 </script>
 
 <style scoped>
+.account-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.account-text {
+  font-size: 0.8rem;
+  color: var(--color-neutral-medium);
+}
+
 .brand-text-block { text-align: center; }
 .brand-name { font-size: 1.6rem; font-weight: 900; color: var(--color-primary-brand); letter-spacing: 0.12em; }
 .brand-tagline { font-size: 0.7rem; color: var(--color-neutral-light); letter-spacing: 0.15em; margin-top: 0.25rem; }
