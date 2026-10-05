@@ -1,0 +1,29 @@
+{
+  "plans": [
+    {
+      "id": 1,
+      "name": "Plan Tarifa",
+      "type": "PAY_PER_USE",
+      "price": 0,
+      "currency": "PEN",
+      "description": "Costo por el recorrido que hayas hecho",
+      "features": ["Sin pagos mensuales", "Ideal para viajes ocasionales"],
+      "recommended": false,
+      "current": true
+    },
+    {
+      "id": 2,
+      "name": "Suscripción Pro",
+      "type": "MONTHLY",
+      "price": 30.0,
+      "currency": "PEN",
+      "description": "Costo por el uso ilimitado",
+      "features": ["Pago unico mensual", "Ideal para viajes frecuentes", "Viajes ilimitados"],
+      "recommended": true,
+      "current": false
+    }
+  ],
+  "subscriptions": [],
+  "payments": [],
+  "paymentMethods": []
+}
