@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:api": "json-server --watch server/db.json --routes server/routes.json",
     "build": "vite build",
     "preview": "vite preview"
   },
