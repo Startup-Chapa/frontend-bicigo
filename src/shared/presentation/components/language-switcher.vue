@@ -1,17 +1,11 @@
 <script setup>
-  import {useI18n} from "vue-i18n";
-  const { locale, availableLocales } = useI18n();
-
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
 </script>
 
 <template>
-  <pv-select-button v-model="locale" :options="availableLocales">
-    <template #option="slotProps">
-      <span>{{ slotProps.option.toUpperCase() }}</span>
-    </template>
-  </pv-select-button>
+  <div class="language-switcher" role="group" :aria-label="t('common.language')">
+    <button type="button" :aria-pressed="locale === 'es'" :aria-label="t('common.spanish')" @click="locale = 'es'">ES</button>
+    <button type="button" :aria-pressed="locale === 'en'" :aria-label="t('common.english')" @click="locale = 'en'">EN</button>
+  </div>
 </template>
-
-<style scoped>
-
-</style>

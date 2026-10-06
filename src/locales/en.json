@@ -1,0 +1,121 @@
+{
+  "common": {
+    "brand": "BiciGO",
+    "mainNav": "Main navigation",
+    "skip": "Skip to content",
+    "language": "Language",
+    "spanish": "Spanish",
+    "english": "English",
+    "cancel": "Cancel",
+    "confirm": "Confirm change",
+    "retry": "Retry",
+    "loading": "Loading reports…",
+    "refresh": "Refresh list",
+    "search": "Search by bicycle or description",
+    "all": "All statuses",
+    "unknown": "No information",
+    "footer": "BiciGO · Mobility that connects us"
+  },
+  "page-not-found": {
+    "title": "Page not found",
+    "content": "The route {unavailable-route} is not available.",
+    "go-home": "Back to Maintenance"
+  },
+  "maintenance": {
+    "title": "Maintenance",
+    "eyebrow": "Looking after every ride",
+    "reportNav": "Report a problem",
+    "managementNav": "Maintenance management",
+    "demo": {
+      "pendingTitle": "Integration in preparation",
+      "pending": "The service is not connected yet. Try the flow with a local demonstration.",
+      "activate": "Try demonstration",
+      "activeTitle": "Local demonstration active",
+      "active": "Reports are saved only in this browser. They are not sent to BiciGO and do not change real bicycles."
+    },
+    "report": {
+      "title": "Report a problem",
+      "subtitle": "Tell us what happened with the bicycle to help keep every ride safe.",
+      "formTitle": "Problem details",
+      "required": "All fields are required.",
+      "bikeId": "Bicycle ID",
+      "bikePlaceholder": "E.g. BGO-1042",
+      "bikeHelp": "Find the identifier on the frame or on the bicycle label.",
+      "problemType": "Problem type",
+      "selectType": "Select a problem",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe the problem and when you noticed it…",
+      "descriptionHelp": "Between 10 and 1000 characters.",
+      "characters": "{count} / {max} characters",
+      "submit": "Send report",
+      "submitting": "Sending report…",
+      "asideTitle": "Your report makes a difference",
+      "asideText": "A clear description helps identify the problem and prepare the bicycle inspection.",
+      "safetyTitle": "Your safety comes first",
+      "safetyText": "If the bicycle has a fault, stop your ride in a safe place and avoid using it further.",
+      "reviewReports": "View reports"
+    },
+    "management": {
+      "title": "Maintenance management",
+      "subtitle": "Review reported problems and manage bicycle availability.",
+      "preview": "Administration and operations view. Production authorization will be integrated with IAM and the backend.",
+      "total": "Reports",
+      "maintenance": "Bicycles in maintenance",
+      "available": "Available bicycles",
+      "listTitle": "Bicycle reports",
+      "results": "{count} reports found",
+      "filter": "Filter by status",
+      "bike": "Bicycle {id}",
+      "date": "Report date",
+      "status": "Bicycle status",
+      "actions": "Actions",
+      "toMaintenance": "Send to maintenance",
+      "toAvailable": "Mark available",
+      "updating": "Updating…",
+      "unknownState": "No transition is defined for this status.",
+      "emptyTitle": "No reports yet",
+      "emptyText": "Reported problems will appear here for review.",
+      "noResultsTitle": "No matches",
+      "noResultsText": "Try another search or change the status filter.",
+      "create": "Create report",
+      "confirmTitle": "Confirm status change",
+      "confirmText": "Bicycle {bikeId} will change from {from} to {to}. The change will appear on all its reports.",
+      "errorTitle": "We could not complete the operation"
+    },
+    "types": {
+      "BRAKES": "Brakes",
+      "CHAIN": "Chain",
+      "WHEEL": "Wheel",
+      "SEAT": "Seat",
+      "LIGHTS": "Lights",
+      "OTHER": "Other"
+    },
+    "statuses": {
+      "AVAILABLE": "Available",
+      "MAINTENANCE": "In maintenance"
+    },
+    "success": {
+      "reportCreated": "Report created in the local demonstration.",
+      "statusUpdated": "Status updated in the local demonstration."
+    },
+    "validation": {
+      "bikeRequired": "Enter the bicycle ID.",
+      "bikeInvalid": "Use an identifier of up to 64 characters without control characters.",
+      "typeRequired": "Select a problem type.",
+      "descriptionShort": "Describe the problem using at least 10 characters.",
+      "descriptionLong": "The description cannot exceed 1000 characters."
+    },
+    "errors": {
+      "integrationPending": "Backend integration is pending. Activate the local demonstration to try the module.",
+      "invalidResponse": "The service returned data that cannot be interpreted.",
+      "storageUnavailable": "Local data could not be saved or read. Check your browser storage permissions.",
+      "invalidDemoData": "Saved demonstration data is invalid. It has been preserved without overwriting it.",
+      "invalidReport": "Check the report fields.",
+      "notFound": "The reported bicycle could not be found.",
+      "conflict": "The status changed since the last load. Refresh the list before trying again.",
+      "invalidTransition": "This status change is not allowed. Refresh the list.",
+      "forbidden": "You are not authorized to perform this operation.",
+      "requestFailed": "The request could not be completed. Please try again."
+    }
+  }
+}
