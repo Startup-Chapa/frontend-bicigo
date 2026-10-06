@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "subscriptions": "Suscripciones",
+    "myProfile": "Mi perfil",
+    "logout": "Cerrar sesión",
+    "sidebar": "Navegación lateral",
+    "mainNav": "Navegación principal",
+    "toggleLanguage": "Cambiar idioma",
+    "notifications": "Notificaciones",
+    "newNotifications": "Hay notificaciones nuevas",
+    "userMenu": "Menú de usuario de {name}"
+  },
+  "footer": {
+    "terms": "Términos y condiciones",
+    "privacy": "Política de privacidad",
+    "copyright": "© 2026 BiciGo. Todos los derechos reservados.",
+    "tagline": "Movilidad en bicicleta"
+  },
+  "auth": {
+    "login": "INICIAR SESIÓN",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "rememberMe": "Recordarme",
+    "createAccount": "Crear cuenta",
+    "continueGoogle": "Continuar con Google",
+    "username": "Nombre de usuario",
+    "phoneNumber": "Número de teléfono",
+    "accountType": "Tipo de cuenta",
+    "accountTypeRequired": "Selecciona un tipo de cuenta.",
+    "planTarifa": "Plan de Tarifa",
+    "planPro": "Suscripción Pro",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "signUp": "REGISTRARSE",
+    "invalidCredentials": "Correo o contraseña incorrectos.",
+    "emailRequired": "El correo es obligatorio.",
+    "passwordRequired": "La contraseña es obligatoria.",
+    "emailInvalid": "Ingresa un correo válido.",
+    "noAccount": "¿No tienes una cuenta?",
+    "registerLink": "Regístrate",
+    "registerError": "Error al crear la cuenta. Inténtalo de nuevo.",
+    "or": "o",
+    "fieldRequired": "Este campo es obligatorio.",
+    "forgotPasswordTitle": "¿Olvidaste tu contraseña?",
+    "forgotPasswordDesc": "Ingresa tu correo y te enviaremos un enlace para restablecerla.",
+    "sendResetLink": "Enviar enlace",
+    "resetEmailSentTitle": "Revisa tu correo",
+    "resetEmailSentDesc": "Si existe una cuenta con ese correo, recibirás un enlace para restablecer tu contraseña.",
+    "backToLogin": "Volver a iniciar sesión",
+    "resetError": "No pudimos enviar el correo. Inténtalo de nuevo."
+  },
+  "profile": {
+    "hello": "Hola,",
+    "myProfile": "Mi perfil",
+    "notifications": "Notificaciones",
+    "settings": "Configuración",
+    "email": "Correo electrónico",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "phoneNumber": "Número de teléfono",
+    "location": "Ubicación",
+    "saveChanges": "Guardar cambios",
+    "updateSuccess": "Perfil actualizado correctamente."
+  },
+  "common": {
+    "search": "Buscar...",
+    "comingSoon": "Próximamente",
+    "plan": {
+      "tarifa": "PLAN DE TARIFA",
+      "pro": "PRO"
+    }
+  }
+}

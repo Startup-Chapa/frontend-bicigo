@@ -1,43 +1,20 @@
-import axios from "axios";
+import axios from 'axios'
 
-// import {iamInterceptor} from "../../iam/infrastructure/iam.interceptor.js";
-
-const platformApi = import.meta.env.VITE_LEARNING_PLATFORM_API_URL;
-
-/**
- * Shared infrastructure base class that configures the HTTP client.
- *
- * @class BaseApi
- */
 export class BaseApi {
-    /**
-     * @private
-     * Axios HTTP client instance
-     * @type {import('axios').AxiosInstance}
-     */
-    #http;
+  #http
 
-    /**
-     * Initializes the Axios HTTP client with the base URL from environment variables
-     */
-    constructor() {
-        this.#http = axios.create({
-            baseURL: platformApi,
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-        });
-        // Add interceptors for request/response if needed
-        // this.#http.interceptors.request.use(iamInterceptor);
-    }
+  constructor() {
+    this.#http = axios.create({
+      baseURL: import.meta.env.VITE_BICIGO_API_URL,
+      headers: { 'Content-Type': 'application/json' }
+    })
 
-    /**
-     * Returns the configured Axios HTTP client.
-     * @returns {import('axios').AxiosInstance}
-     */
-    get http() {
-        return this.#http;
-    }
+    this.#http.interceptors.request.use(config => {
+      const token = localStorage.getItem('bicigo_token')
+      if (token) config.headers.Authorization = `Bearer ${token}`
+      return config
+    })
+  }
 
+  get http() { return this.#http }
 }

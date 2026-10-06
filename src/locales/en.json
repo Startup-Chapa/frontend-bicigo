@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "subscriptions": "Subscriptions",
+    "myProfile": "My Profile",
+    "logout": "Log Out",
+    "sidebar": "Sidebar navigation",
+    "mainNav": "Main navigation",
+    "toggleLanguage": "Toggle language",
+    "notifications": "Notifications",
+    "newNotifications": "New notifications available",
+    "userMenu": "User menu for {name}"
+  },
+  "footer": {
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "copyright": "© 2026 BiciGo. All rights reserved.",
+    "tagline": "Bike mobility"
+  },
+  "auth": {
+    "login": "LOG IN",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember me",
+    "createAccount": "Create Account",
+    "continueGoogle": "Continue with Google",
+    "username": "Username",
+    "phoneNumber": "Phone number",
+    "accountType": "Account type",
+    "accountTypeRequired": "Select an account type.",
+    "planTarifa": "Fee Plan",
+    "planPro": "Pro Subscription",
+    "alreadyHaveAccount": "Already have an account?",
+    "signUp": "SIGN UP",
+    "invalidCredentials": "Invalid email or password.",
+    "emailRequired": "Email is required.",
+    "passwordRequired": "Password is required.",
+    "emailInvalid": "Enter a valid email.",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Sign up",
+    "registerError": "Error creating account. Please try again.",
+    "or": "or",
+    "fieldRequired": "This field is required.",
+    "forgotPasswordTitle": "Forgot your password?",
+    "forgotPasswordDesc": "Enter your email and we'll send you a link to reset it.",
+    "sendResetLink": "Send reset link",
+    "resetEmailSentTitle": "Check your email",
+    "resetEmailSentDesc": "If an account exists with that email, you'll receive a link to reset your password.",
+    "backToLogin": "Back to log in",
+    "resetError": "We couldn't send the email. Please try again."
+  },
+  "profile": {
+    "hello": "Hello,",
+    "myProfile": "My Profile",
+    "notifications": "Notifications",
+    "settings": "Settings",
+    "email": "Email",
+    "username": "Username",
+    "password": "Password",
+    "phoneNumber": "Phone number",
+    "location": "Location",
+    "saveChanges": "Save changes",
+    "updateSuccess": "Profile updated successfully."
+  },
+  "common": {
+    "search": "Search...",
+    "comingSoon": "Coming soon",
+    "plan": {
+      "tarifa": "RATE PLAN",
+      "pro": "PRO"
+    }
+  }
+}
