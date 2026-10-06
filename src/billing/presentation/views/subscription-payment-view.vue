@@ -36,7 +36,7 @@ async function pay() {
 <template>
   <div class="pay-page">
     <h1>Realiza tu pago</h1>
-    <p class="subtitle" v-if="plan">Plan {{ plan.name }}: S/ {{ plan.price.toFixed(2) }} / mes</p>
+    <p class="subtitle" v-if="plan">Plan {{ plan.name }}: {{ plan.price > 0 ? `S/ ${plan.price.toFixed(2)} / mes` : 'pago por uso, sin costo mensual' }}</p>
 
     <div class="form-card">
       <h2>Datos de la tarjeta</h2>
@@ -60,7 +60,7 @@ async function pay() {
         </pv-float-label>
       </form>
       <pv-button
-        :label="`Pagar S/ ${plan ? plan.price.toFixed(2) : '0.00'}`"
+        :label="plan && plan.price > 0 ? `Pagar S/ ${plan.price.toFixed(2)}` : 'Activar Plan'"
         class="pay-btn"
         :loading="billing.loading"
         @click="pay"

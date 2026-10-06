@@ -62,15 +62,9 @@ onMounted(() => billing.fetchPlans())
           <li v-for="f in plan.features" :key="f">{{ f }}</li>
         </ul>
         <p v-if="plan.price > 0" class="price">S/ {{ plan.price.toFixed(2) }} <span>al mes</span></p>
+        <p v-else class="price">Pago por uso</p>
         <pv-button
-          v-if="plan.current"
-          label="Plan Actual"
-          severity="secondary"
-          disabled
-        />
-        <pv-button
-          v-else
-          label="Mejorar Plan"
+          :label="plan.current ? 'Activar Plan' : 'Mejorar Plan'"
           class="improve-btn"
           @click="goToSubscribe(plan)"
         />
