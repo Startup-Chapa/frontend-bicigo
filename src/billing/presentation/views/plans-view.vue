@@ -64,10 +64,18 @@ onMounted(() => billing.fetchPlans())
         <p v-if="plan.price > 0" class="price">S/ {{ plan.price.toFixed(2) }} <span>al mes</span></p>
         <p v-else class="price">Pago por uso</p>
         <pv-button
-          :label="plan.current ? 'Activar Plan' : 'Mejorar Plan'"
+          v-if="plan.current"
+          label="Plan Actual"
+          severity="secondary"
+          disabled
+        />
+        <pv-button
+          v-else
+          label="Mejorar Plan"
           class="improve-btn"
           @click="goToSubscribe(plan)"
         />
+        <p v-if="plan.current" class="later-note">La compra de este plan se implementará más adelante.</p>
       </div>
     </div>
   </div>
@@ -127,4 +135,5 @@ onMounted(() => billing.fetchPlans())
 .price span { font-size: 0.9rem; color: #9ca3af; font-weight: 400; }
 .recommended-label { font-weight: 700; font-size: 1.25rem; margin: 0; }
 .improve-btn { background: #84cc16 !important; border: none !important; color: #1f2937 !important; font-weight: 700; }
+.later-note { font-size: 0.75rem; color: #9ca3af; margin: 0; }
 </style>
