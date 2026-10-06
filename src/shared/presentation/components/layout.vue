@@ -5,7 +5,7 @@ import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import FooterContent from "./footer-content.vue";
 // To import when IAM is implemented:
-// import AuthenticationSection from "../../../iam/presentation/components/authentication-section.vue";
+// import AuthenticationSection from "../../../iam/presentation/views/authentication-section.vue";
 const { t } = useI18n();
 
 const drawer = ref(false);
