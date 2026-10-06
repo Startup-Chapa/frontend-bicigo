@@ -5,7 +5,7 @@ export class BaseApi {
 
   constructor() {
     this.#http = axios.create({
-      baseURL: import.meta.env.VITE_BICIGO_API_URL,
+      baseURL: import.meta.env.VITE_BICIGO_API_URL || import.meta.env.VITE_LEARNING_PLATFORM_API_URL,
       headers: { 'Content-Type': 'application/json' }
     })
 

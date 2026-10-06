@@ -40,7 +40,7 @@ import { useI18n } from 'vue-i18n'
 import { useIamStore } from '../../../iam/application/iam.store.js'
 
 const router = useRouter()
-const { locale } = useI18n()
+const { locale } = useI18n({ useScope: 'global' })
 const iamStore = useIamStore()
 
 const searchQuery = ref('')
@@ -178,4 +178,12 @@ function goToProfile() {
 }
 
 .user-name { font-size: 0.875rem; font-weight: 500; color: var(--color-neutral-dark); }
+</style>
+<style scoped>
+@media (max-width: 600px) {
+  .topbar { height: auto; padding: 12px; flex-wrap: wrap; gap: 12px; }
+  .topbar-search { width: 100%; }
+  .search-box { min-width: 0; }
+  .topbar-actions { width: 100%; justify-content: flex-end; }
+}
 </style>

@@ -10,12 +10,15 @@ class IamApi extends BaseApi {
   }
 
   async login(email, password) {
-    const res = await this.#users.getAll({ email })
-    return res
+    const res = await this.#users.getAll({ email: email.trim().toLowerCase() })
+    return { ...res, data: res.data.filter(user => user.password === password) }
   }
 
-  register(data) {
-    return this.#users.create(data)
+  async register(data) {
+    const email = data.email.trim().toLowerCase()
+    const existing = await this.#users.getAll({ email })
+    if (existing.data.length) throw new Error("Email already registered")
+    return this.#users.create({ ...data, email, role: "USER" })
   }
 
   getProfile(id) {

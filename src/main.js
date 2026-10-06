@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import Material from '@primevue/themes/material'
+import Material from '@primeuix/themes/material'
 import PrimeVue from 'primevue/config'
 import {
     Button,
@@ -21,6 +21,7 @@ import {
     Menu,
     Password,
     Row,
+    RadioButton,
     Select,
     SelectButton,
     Tag,
@@ -31,20 +32,21 @@ import {
     Tooltip
 } from 'primevue'
 
-import App from './app.vue'
+import App from './App.vue'
 import router from './router.js'
 import pinia from './pinia.js'
 import i18n from './i18n.js'
 
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
+import './integration.css'
 import './style.css'
 
 createApp(App)
     .use(pinia)
     .use(router)
     .use(i18n)
-    .use(PrimeVue, { theme: { preset: Material }, ripple: true })
+    .use(PrimeVue, { theme: { preset: Material, options: { darkModeSelector: false } }, ripple: true, license: import.meta.env.VITE_PRIME_UI_LICENSE_KEY })
     .use(ConfirmationService)
     .use(DialogService)
     .use(ToastService)
@@ -64,7 +66,9 @@ createApp(App)
     .component('pv-input-text',     InputText)
     .component('pv-menu',           Menu)
     .component('pv-password',       Password)
+    .component('pv-radio-button', RadioButton)
     .component('pv-row',            Row)
+    .component('pv-dropdown', Select)
     .component('pv-select',         Select)
     .component('pv-select-button',  SelectButton)
     .component('pv-tag',            Tag)

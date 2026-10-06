@@ -1,0 +1,126 @@
+{
+  "plans": [
+    {
+      "id": 1,
+      "name": "Plan Tarifa",
+      "type": "PAY_PER_USE",
+      "price": 0,
+      "currency": "PEN",
+      "description": "Costo por el recorrido que hayas hecho",
+      "features": [
+        "Sin pagos mensuales",
+        "Ideal para viajes ocasionales"
+      ],
+      "recommended": false,
+      "current": true
+    },
+    {
+      "id": 2,
+      "name": "Suscripción Pro",
+      "type": "MONTHLY",
+      "price": 30,
+      "currency": "PEN",
+      "description": "Costo por el uso ilimitado",
+      "features": [
+        "Pago unico mensual",
+        "Ideal para viajes frecuentes",
+        "Viajes ilimitados"
+      ],
+      "recommended": true,
+      "current": false
+    }
+  ],
+  "subscriptions": [],
+  "payments": [],
+  "paymentMethods": [],
+  "users": [
+    {
+      "id": 1,
+      "email": "usuario@bicigo.test",
+      "password": "BiciGO123!",
+      "username": "Usuario Demo",
+      "phoneNumber": "",
+      "plan": "tarifa",
+      "role": "USER",
+      "location": "Lima"
+    },
+    {
+      "id": 2,
+      "email": "operador@bicigo.test",
+      "password": "BiciGO123!",
+      "username": "Operador Demo",
+      "phoneNumber": "",
+      "plan": "tarifa",
+      "role": "OPERATOR",
+      "location": "Lima"
+    }
+  ],
+  "trips": [
+    {
+      "id": "TRIP-001",
+      "tripId": "TRIP-001",
+      "userId": 1,
+      "bicycleId": "BGO-1042",
+      "startedAt": "2026-10-06T12:00:00Z",
+      "finishedAt": "2026-10-06T12:20:00Z",
+      "distanceKm": 3.2,
+      "status": "FINISHED",
+      "totalCost": 3.2
+    },
+    {
+      "id": "TRIP-002",
+      "tripId": "TRIP-002",
+      "userId": 2,
+      "bicycleId": "BGO-2000",
+      "startedAt": "2026-10-06T13:00:00Z",
+      "finishedAt": "2026-10-06T13:25:00Z",
+      "distanceKm": 4.1,
+      "status": "FINISHED",
+      "totalCost": 4.1
+    }
+  ],
+  "qr-validations": [],
+  "bike-points": [
+    {
+      "id": 1,
+      "name": "BiciGO Centro",
+      "district": "Lima",
+      "address": "Av. Arequipa 100",
+      "latitude": -12.05,
+      "longitude": -77.03,
+      "capacity": 10,
+      "availableSlots": 9,
+      "currentBicyclesCount": 1,
+      "status": "OPERATIONAL"
+    }
+  ],
+  "bicycles": [
+    {
+      "id": "BGO-1042",
+      "serialNumber": "BG-1042",
+      "bikeCode": "BGO-1042",
+      "qrCode": "BICIGO-BGO-1042",
+      "model": "City",
+      "status": "AVAILABLE",
+      "currentBikePointId": null
+    },
+    {
+      "id": "BGO-2000",
+      "serialNumber": "BG-2000",
+      "bikeCode": "BGO-2000",
+      "qrCode": "BICIGO-BGO-2000",
+      "model": "City",
+      "status": "AVAILABLE",
+      "currentBikePointId": null
+    },
+    {
+      "id": 1,
+      "serialNumber": "BG-001",
+      "bikeCode": "B1",
+      "qrCode": "BICIGO-B1",
+      "model": "City",
+      "status": "AVAILABLE",
+      "currentBikePointId": 1
+    }
+  ]
+}

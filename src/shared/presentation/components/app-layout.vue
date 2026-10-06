@@ -37,3 +37,7 @@ import AppFooter from './app-footer.vue'
   overflow-y: auto;
 }
 </style>
+<style scoped>
+.app-main { min-width: 0; }
+@media (max-width: 600px) { .app-shell { flex-direction: column; } }
+</style>

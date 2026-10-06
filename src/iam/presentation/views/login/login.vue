@@ -95,15 +95,16 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { useRouter, useRoute, RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useIamStore, PLANS } from '../../../application/iam.store.js'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 
 const router   = useRouter()
+const route = useRoute()
 const iamStore = useIamStore()
-const { locale } = useI18n()
+const { locale } = useI18n({ useScope: 'global' })
 
 const form = reactive({ email: '', password: '', remember: false })
 
@@ -125,7 +126,8 @@ async function handleLogin() {
   const ok = await iamStore.login(form.email, form.password)
   if (!ok) return
 
-  if (iamStore.currentUser?.plan === PLANS.PRO) router.push({ name: 'pro-dashboard' })
+  if (typeof route.query.redirect === 'string' && route.query.redirect.startsWith('/') && !route.query.redirect.startsWith('//')) router.push(route.query.redirect)
+  else if (iamStore.currentUser?.plan === PLANS.PRO) router.push({ name: 'pro-dashboard' })
   else router.push({ name: 'tarifa-dashboard' })
 }
 </script>
