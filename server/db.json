@@ -55,45 +55,63 @@
       "location": "Lima"
     }
   ],
+ {
   "trips": [
     {
-      "id": "TRIP-001",
       "tripId": "TRIP-001",
-      "userId": 1,
-      "bicycleId": "BGO-1042",
-      "startedAt": "2026-10-06T12:00:00Z",
-      "finishedAt": "2026-10-06T12:20:00Z",
-      "distanceKm": 3.2,
+      "userId": "USER-001",
+      "bicycleId": "BIKE-001",
+      "startedAt": "2026-10-01T10:00:00.000Z",
+      "finishedAt": "2026-10-01T10:25:00.000Z",
+      "distanceKm": 4.5,
       "status": "FINISHED",
-      "totalCost": 3.2
+      "totalCost": 9
     },
     {
-      "id": "TRIP-002",
       "tripId": "TRIP-002",
-      "userId": 2,
-      "bicycleId": "BGO-2000",
-      "startedAt": "2026-10-06T13:00:00Z",
-      "finishedAt": "2026-10-06T13:25:00Z",
-      "distanceKm": 4.1,
-      "status": "FINISHED",
-      "totalCost": 4.1
+      "userId": "USER-002",
+      "bicycleId": "BIKE-002",
+      "startedAt": "2026-10-02T15:30:00.000Z",
+      "finishedAt": null,
+      "distanceKm": 1.8,
+      "status": "IN_PROGRESS",
+      "totalCost": 0
     }
   ],
-  "qr-validations": [],
-  "bike-points": [
+  "qrValidations": [
     {
-      "id": 1,
-      "name": "BiciGO Centro",
-      "district": "Lima",
-      "address": "Av. Arequipa 100",
-      "latitude": -12.05,
-      "longitude": -77.03,
-      "capacity": 10,
-      "availableSlots": 9,
-      "currentBicyclesCount": 1,
-      "status": "OPERATIONAL"
+      "validationId": "QRV-001",
+      "tripId": "TRIP-001",
+      "bicycleId": "BIKE-001",
+      "qrCodeSnapshot": "BIKE-001-QR",
+      "validatedAt": "2026-10-01T09:59:30.000Z",
+      "result": "VALID"
     }
   ],
+  "users": [
+    {
+      "userId": "USER-ADMIN",
+      "name": "Administrador",
+      "email": "admin@tripmanagement.com",
+      "role": "ADMIN",
+      "active": true
+    },
+    {
+      "userId": "USER-001",
+      "name": "Usuario Demo 1",
+      "email": "usuario1@tripmanagement.com",
+      "role": "USER",
+      "active": true
+    },
+    {
+      "userId": "USER-002",
+      "name": "Usuario Demo 2",
+      "email": "usuario2@tripmanagement.com",
+      "role": "USER",
+      "active": true
+    }
+  ]
+}
   "bicycles": [
     {
       "id": "BGO-1042",
