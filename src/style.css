@@ -253,3 +253,6 @@ input:focus-visible {
 .lang-toggle:hover { border-color: var(--color-primary-brand); }
 .lang-toggle span.active { color: var(--color-primary-dark); }
 .lang-sep { color: var(--color-border); }
+/* Additional module styles preserve the current IAM foundation. */
+
+:root { --accent: #84cc16; --accent-dark: #2f3b2f; --text: #607078; --text-h: #263238; --bg: #f8faf5; }

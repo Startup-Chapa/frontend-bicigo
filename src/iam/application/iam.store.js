@@ -15,6 +15,7 @@ export const useIamStore = defineStore('iam', () => {
 
   const isAuthenticated = computed(() => !!token.value && !!currentUser.value)
   const isTarifa        = computed(() => currentUser.value?.plan === PLANS.TARIFA)
+  const canManageMaintenance = computed(() => ['ADMIN', 'OPERATOR'].includes(currentUser.value?.role))
   const isPro           = computed(() => currentUser.value?.plan === PLANS.PRO)
 
   // Rehydrate user from localStorage on cold load
@@ -24,10 +25,11 @@ export const useIamStore = defineStore('iam', () => {
   }
 
   function persistSession(user) {
-    currentUser.value = user
+    const { password: _password, ...sessionUser } = user
+    currentUser.value = sessionUser
     token.value = `mock-jwt-${user.id}`
     localStorage.setItem('bicigo_token', token.value)
-    localStorage.setItem('bicigo_user', JSON.stringify(user))
+    localStorage.setItem('bicigo_user', JSON.stringify(sessionUser))
   }
 
   async function login(email, password) {
@@ -75,8 +77,9 @@ export const useIamStore = defineStore('iam', () => {
     try {
       const res = await iamApi.updateProfile(currentUser.value.id, data)
       if (res.status !== 200) { console.error(`${res.status}, ${res.statusText}`); return false }
-      currentUser.value = res.data
-      localStorage.setItem('bicigo_user', JSON.stringify(res.data))
+      const { password: _password, ...sessionUser } = res.data
+      currentUser.value = sessionUser
+      localStorage.setItem('bicigo_user', JSON.stringify(sessionUser))
       return true
     } catch (e) {
       errors.value = ['updateError']
@@ -116,7 +119,7 @@ export const useIamStore = defineStore('iam', () => {
 
   return {
     currentUser, token, errors, loading,
-    isAuthenticated, isTarifa, isPro,
+    isAuthenticated, isTarifa, isPro, canManageMaintenance,
     login, register, updateProfile, requestPasswordReset, applyPlanUpgrade, logout
   }
 })

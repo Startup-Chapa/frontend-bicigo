@@ -1,0 +1,144 @@
+{
+  "plans": [
+    {
+      "id": 1,
+      "name": "Plan Tarifa",
+      "type": "PAY_PER_USE",
+      "price": 0,
+      "currency": "PEN",
+      "description": "Costo por el recorrido que hayas hecho",
+      "features": [
+        "Sin pagos mensuales",
+        "Ideal para viajes ocasionales"
+      ],
+      "recommended": false,
+      "current": true
+    },
+    {
+      "id": 2,
+      "name": "Suscripción Pro",
+      "type": "MONTHLY",
+      "price": 30,
+      "currency": "PEN",
+      "description": "Costo por el uso ilimitado",
+      "features": [
+        "Pago unico mensual",
+        "Ideal para viajes frecuentes",
+        "Viajes ilimitados"
+      ],
+      "recommended": true,
+      "current": false
+    }
+  ],
+  "subscriptions": [],
+  "payments": [],
+  "paymentMethods": [],
+  "users": [
+    {
+      "id": 1,
+      "email": "usuario@bicigo.test",
+      "password": "BiciGO123!",
+      "username": "Usuario Demo",
+      "phoneNumber": "",
+      "plan": "tarifa",
+      "role": "USER",
+      "location": "Lima"
+    },
+    {
+      "id": 2,
+      "email": "operador@bicigo.test",
+      "password": "BiciGO123!",
+      "username": "Operador Demo",
+      "phoneNumber": "",
+      "plan": "tarifa",
+      "role": "OPERATOR",
+      "location": "Lima"
+    }
+  ],
+ {
+  "trips": [
+    {
+      "tripId": "TRIP-001",
+      "userId": "USER-001",
+      "bicycleId": "BIKE-001",
+      "startedAt": "2026-10-01T10:00:00.000Z",
+      "finishedAt": "2026-10-01T10:25:00.000Z",
+      "distanceKm": 4.5,
+      "status": "FINISHED",
+      "totalCost": 9
+    },
+    {
+      "tripId": "TRIP-002",
+      "userId": "USER-002",
+      "bicycleId": "BIKE-002",
+      "startedAt": "2026-10-02T15:30:00.000Z",
+      "finishedAt": null,
+      "distanceKm": 1.8,
+      "status": "IN_PROGRESS",
+      "totalCost": 0
+    }
+  ],
+  "qrValidations": [
+    {
+      "validationId": "QRV-001",
+      "tripId": "TRIP-001",
+      "bicycleId": "BIKE-001",
+      "qrCodeSnapshot": "BIKE-001-QR",
+      "validatedAt": "2026-10-01T09:59:30.000Z",
+      "result": "VALID"
+    }
+  ],
+  "users": [
+    {
+      "userId": "USER-ADMIN",
+      "name": "Administrador",
+      "email": "admin@tripmanagement.com",
+      "role": "ADMIN",
+      "active": true
+    },
+    {
+      "userId": "USER-001",
+      "name": "Usuario Demo 1",
+      "email": "usuario1@tripmanagement.com",
+      "role": "USER",
+      "active": true
+    },
+    {
+      "userId": "USER-002",
+      "name": "Usuario Demo 2",
+      "email": "usuario2@tripmanagement.com",
+      "role": "USER",
+      "active": true
+    }
+  ]
+}
+  "bicycles": [
+    {
+      "id": "BGO-1042",
+      "serialNumber": "BG-1042",
+      "bikeCode": "BGO-1042",
+      "qrCode": "BICIGO-BGO-1042",
+      "model": "City",
+      "status": "AVAILABLE",
+      "currentBikePointId": null
+    },
+    {
+      "id": "BGO-2000",
+      "serialNumber": "BG-2000",
+      "bikeCode": "BGO-2000",
+      "qrCode": "BICIGO-BGO-2000",
+      "model": "City",
+      "status": "AVAILABLE",
+      "currentBikePointId": null
+    },
+    {
+      "id": 1,
+      "serialNumber": "BG-001",
+      "bikeCode": "B1",
+      "qrCode": "BICIGO-B1",
+      "model": "City",
+      "status": "AVAILABLE",
+      "currentBikePointId": 1
+    }
+  ]
+}

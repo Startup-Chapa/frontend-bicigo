@@ -33,7 +33,7 @@ import { computed } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useIamStore, PLANS } from '../../../iam/application/iam.store.js'
 import { useI18n } from 'vue-i18n'
-import {$t} from "@primeuix/styled";
+
 
 const { t } = useI18n()
 const route  = useRoute()
@@ -50,21 +50,16 @@ const sectionLabel = computed(() => {
   return map[plan.value] || ''
 })
 
-const navItems = computed(() => {
-  if (plan.value === PLANS.PRO) {
-    return [
-      { name: 'pro-dashboard',       label: t('nav.dashboard'),     icon: 'pi pi-th-large', to: '/app/pro/dashboard' },
-      { name: 'subscriptions-plans', label: t('nav.subscriptions'), icon: 'pi pi-star',     to: '/app/subscriptions/plans' },
-      { name: 'profile',             label: t('nav.myProfile'),     icon: 'pi pi-user',     to: '/app/profile' }
-    ]
-  }
-  // Plan de Tarifa
-  return [
-    { name: 'tarifa-dashboard',    label: t('nav.dashboard'),     icon: 'pi pi-th-large', to: '/app/tarifa/dashboard' },
-    { name: 'subscriptions-plans', label: t('nav.subscriptions'), icon: 'pi pi-star',     to: '/app/subscriptions/plans' },
-    { name: 'profile',             label: t('nav.myProfile'),     icon: 'pi pi-user',     to: '/app/profile' }
-  ]
-})
+const navItems = computed(() => [
+  { name: 'dashboard', label: t('nav.dashboard'), icon: 'pi pi-th-large', to: '/app/dashboard' },
+  { name: 'plans', label: t('nav.subscriptions'), icon: 'pi pi-star', to: '/billing/plans' },
+  { name: 'trips', label: t('integration.trips'), icon: 'pi pi-map', to: '/trip-management/trips' },
+  { name: 'fleet', label: t('integration.fleet'), icon: 'pi pi-map-marker', to: '/fleet/bike-points' },
+  { name: 'bicycles', label: t('integration.bicycles'), icon: 'pi pi-bicycle', to: '/fleet/bicycles' },
+  { name: 'report', label: t('integration.report'), icon: 'pi pi-wrench', to: '/maintenance/report' },
+  ...(iamStore.canManageMaintenance ? [{ name: 'management', label: t('integration.management'), icon: 'pi pi-cog', to: '/maintenance/management' }] : []),
+  { name: 'profile', label: t('nav.myProfile'), icon: 'pi pi-user', to: '/app/profile' }
+])
 
 function isActive(path) {
   return route.path.startsWith(path)
@@ -157,4 +152,14 @@ function logout() {
 }
 
 .sidebar-logout:hover { color: #FF8A80; }
+</style>
+<style scoped>
+@media (max-width: 600px) {
+  .sidebar { width: 100%; min-height: auto; padding: 12px; }
+  .sidebar-logo, .sidebar-section-label { margin-bottom: 8px; }
+  .sidebar-nav { display: flex; flex-wrap: wrap; }
+  .sidebar-section-label { width: 100%; }
+  .sidebar-link { padding: 8px; margin: 0; }
+  .sidebar-logout { margin-top: 8px; }
+}
 </style>
