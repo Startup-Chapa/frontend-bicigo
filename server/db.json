@@ -55,7 +55,6 @@
       "location": "Lima"
     }
   ],
- {
   "trips": [
     {
       "tripId": "TRIP-001",
@@ -88,7 +87,7 @@
       "result": "VALID"
     }
   ],
-  "users": [
+  "tripUsers": [
     {
       "userId": "USER-ADMIN",
       "name": "Administrador",
@@ -110,8 +109,7 @@
       "role": "USER",
       "active": true
     }
-  ]
-}
+  ],
   "bicycles": [
     {
       "id": "BGO-1042",
