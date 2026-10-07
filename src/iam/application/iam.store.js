@@ -19,7 +19,7 @@ export const useIamStore = defineStore('iam', () => {
   const isPro           = computed(() => currentUser.value?.plan === PLANS.PRO)
 
   // Rehydrate user from localStorage on cold load
-  const savedUser = localStorage.getItem('bicigo_user')
+  const savedUser = localStorage.getItem('users')
   if (savedUser) {
     try { currentUser.value = JSON.parse(savedUser) } catch {}
   }
@@ -29,7 +29,7 @@ export const useIamStore = defineStore('iam', () => {
     currentUser.value = sessionUser
     token.value = `mock-jwt-${user.id}`
     localStorage.setItem('bicigo_token', token.value)
-    localStorage.setItem('bicigo_user', JSON.stringify(sessionUser))
+    localStorage.setItem('users', JSON.stringify(sessionUser))
   }
 
   async function login(email, password) {
@@ -79,7 +79,7 @@ export const useIamStore = defineStore('iam', () => {
       if (res.status !== 200) { console.error(`${res.status}, ${res.statusText}`); return false }
       const { password: _password, ...sessionUser } = res.data
       currentUser.value = sessionUser
-      localStorage.setItem('bicigo_user', JSON.stringify(sessionUser))
+      localStorage.setItem('users', JSON.stringify(sessionUser))
       return true
     } catch (e) {
       errors.value = ['updateError']
@@ -107,14 +107,14 @@ export const useIamStore = defineStore('iam', () => {
     if (!currentUser.value) return
     if (!Object.values(PLANS).includes(planKey)) return
     currentUser.value = { ...currentUser.value, plan: planKey }
-    localStorage.setItem('bicigo_user', JSON.stringify(currentUser.value))
+    localStorage.setItem('users', JSON.stringify(currentUser.value))
   }
 
   function logout() {
     currentUser.value = null
     token.value = null
     localStorage.removeItem('bicigo_token')
-    localStorage.removeItem('bicigo_user')
+    localStorage.removeItem('users')
   }
 
   return {
