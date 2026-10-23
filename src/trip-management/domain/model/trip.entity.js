@@ -35,7 +35,7 @@ export class Trip {
         this.totalCost = Number(totalCost) || 0;
     }
 
-    /** Starts the trip. */
+
     startTrip(startedAt = new Date().toISOString()) {
         if (this.status === 'IN_PROGRESS') {
             return;
@@ -47,7 +47,7 @@ export class Trip {
         this.status = 'IN_PROGRESS';
     }
 
-    /** Finishes the trip and stores the final distance. */
+
     finishTrip(distanceKm, finishedAt = new Date().toISOString()) {
         if (this.status !== 'IN_PROGRESS') {
             throw new Error('Only an in-progress trip can be finished.');
