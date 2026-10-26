@@ -23,6 +23,7 @@ const router = createRouter({
         ...iamRoutes.filter(route => !route.path.startsWith('/auth/')),
         { path: 'tarifa/dashboard', name: 'tarifa-dashboard', redirect: { name: 'dashboard' } },
         { path: 'pro/dashboard', name: 'pro-dashboard', redirect: { name: 'dashboard' } },
+        { path: '/map', name: 'mapa', redirect: { name: 'trip-management-map' } },
         { path: 'subscriptions/plans', name: 'subscriptions-plans', redirect: { name: 'plans' } },
         { path: '/billing', children: billingRoutes, redirect: { name: 'plans' } },
         { path: '/maintenance', children: maintenanceRoutes, redirect: { name: 'maintenance-report' } },

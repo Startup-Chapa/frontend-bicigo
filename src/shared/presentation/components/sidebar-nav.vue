@@ -52,6 +52,7 @@ const sectionLabel = computed(() => {
 
 const navItems = computed(() => [
   { name: 'dashboard', label: t('nav.dashboard'), icon: 'pi pi-th-large', to: '/app/dashboard' },
+  { name: 'trip-map',  label: 'Mapa de ruta',     icon: 'pi pi-map',      to: '/map' },
   { name: 'plans', label: t('nav.subscriptions'), icon: 'pi pi-star', to: '/billing/plans' },
   { name: 'trips', label: t('integration.trips'), icon: 'pi pi-map', to: '/trip-management/trips' },
   { name: 'fleet', label: t('integration.fleet'), icon: 'pi pi-map-marker', to: '/fleet/bike-points' },

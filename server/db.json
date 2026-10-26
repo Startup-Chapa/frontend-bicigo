@@ -30,9 +30,37 @@
       "current": false
     }
   ],
-  "subscriptions": [],
-  "payments": [],
-  "paymentMethods": [],
+  "subscriptions": [
+    {
+      "userId": 2,
+      "planId": 2,
+      "planType": "MONTHLY",
+      "price": 30,
+      "startDate": "2026-10-25T16:08:08.361Z",
+      "status": "ACTIVE",
+      "id": 1
+    }
+  ],
+  "payments": [
+    {
+      "subscriptionId": 1,
+      "amount": 30,
+      "currency": "PEN",
+      "status": "COMPLETED",
+      "isAutomatic": false,
+      "createdAt": "2026-10-25T16:08:08.432Z",
+      "id": 1
+    }
+  ],
+  "paymentMethods": [
+    {
+      "userId": 2,
+      "type": "CARD",
+      "token": "****2777",
+      "isDefault": true,
+      "id": 1
+    }
+  ],
   "users": [
     {
       "id": 1,
@@ -50,7 +78,7 @@
       "password": "BiciGO123!",
       "username": "Operador Demo",
       "phoneNumber": "",
-      "plan": "tarifa",
+      "plan": "pro",
       "role": "OPERATOR",
       "location": "Lima"
     }
@@ -137,6 +165,29 @@
       "model": "City",
       "status": "AVAILABLE",
       "currentBikePointId": 1
+    },
+    {
+      "id": "mpgx7v2",
+      "serialNumber": "SN-215497",
+      "bikeCode": "BK-004",
+      "qrCode": "QR-BK-001",
+      "model": "City Cruiser V2",
+      "status": "AVAILABLE",
+      "currentBikePointId": 1
+    }
+  ],
+  "bike-points": [
+    {
+      "id": 1,
+      "name": "Paleta Storm",
+      "district": "Lima",
+      "address": "Jr. José Nicolás Rodrigo 100, Santiago de Surco, Peru, 15023",
+      "latitude": 0,
+      "longitude": 0,
+      "capacity": 10,
+      "availableSlots": 9,
+      "currentBicyclesCount": 1,
+      "status": "OPERATIONAL"
     }
   ]
 }
