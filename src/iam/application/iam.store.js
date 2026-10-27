@@ -103,6 +103,28 @@ export const useIamStore = defineStore('iam', () => {
     }
   }
 
+  // Single-flight guard so sidebar and map view racing on mount don't double-GET.
+  let refreshPromise = null
+
+  async function refreshProfile() {
+    if (!currentUser.value?.id) return false
+    if (refreshPromise) return refreshPromise
+    refreshPromise = (async () => {
+      try {
+        const res = await iamApi.getProfile(currentUser.value.id)
+        if (res.status !== 200) { console.error(`${res.status}, ${res.statusText}`); return false }
+        persistSession(res.data)
+        return true
+      } catch (e) {
+        console.error('refreshProfile failed', e)
+        return false
+      } finally {
+        refreshPromise = null
+      }
+    })()
+    return refreshPromise
+  }
+
   function applyPlanUpgrade(planKey) {
     if (!currentUser.value) return
     if (!Object.values(PLANS).includes(planKey)) return
@@ -120,6 +142,6 @@ export const useIamStore = defineStore('iam', () => {
   return {
     currentUser, token, errors, loading,
     isAuthenticated, isTarifa, isPro, canManageMaintenance,
-    login, register, updateProfile, requestPasswordReset, applyPlanUpgrade, logout
+    login, register, updateProfile, requestPasswordReset, refreshProfile, applyPlanUpgrade, logout
   }
 })

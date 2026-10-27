@@ -9,7 +9,21 @@
     "toggleLanguage": "Toggle language",
     "notifications": "Notifications",
     "newNotifications": "New notifications available",
-    "userMenu": "User menu for {name}"
+    "userMenu": "User menu for {name}",
+    "balance": "Balance",
+    "topUp": "Top up",
+    "topUpTitle": "Top up balance",
+    "topUpDesc": "Choose an amount to add to your balance.",
+    "topUpSuccess": "Balance topped up successfully.",
+    "topUpError": "The top-up could not be completed."
+  },
+  "tripMap": {
+    "calculatedAutomatically": "calculated automatically.",
+    "balance": "Balance",
+    "tripCost": "Trip cost",
+    "insufficientBalance": "Insufficient balance to finish this trip.",
+    "insufficientBalanceHint": "Top up your balance to complete the return.",
+    "chargeError": "The trip was finished but the charge could not be recorded. Try again."
   },
   "footer": {
     "terms": "Terms & Conditions",

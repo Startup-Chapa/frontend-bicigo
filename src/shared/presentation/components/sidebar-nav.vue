@@ -21,24 +21,83 @@
       </RouterLink>
     </nav>
 
+    <div v-if="iamStore.isTarifa" class="sidebar-balance">
+      <div class="balance-row">
+        <span class="balance-label">{{ $t('nav.balance') }}</span>
+        <span class="balance-value">S/ {{ balanceFormatted }}</span>
+      </div>
+      <button class="sidebar-topup" :aria-label="$t('nav.topUp')" @click="topUpVisible = true">
+        <i class="pi pi-plus" aria-hidden="true" />
+        {{ $t('nav.topUp') }}
+      </button>
+    </div>
+
     <button class="sidebar-logout" @click="logout" :aria-label="$t('nav.logout')">
       <i class="pi pi-sign-out" aria-hidden="true" />
       {{ $t('nav.logout') }}
     </button>
+
+    <pv-dialog v-model:visible="topUpVisible" :header="$t('nav.topUpTitle')" modal class="w-11 md:w-5">
+      <p class="text-sm text-600 mb-3">{{ $t('nav.topUpDesc') }}</p>
+      <div class="flex gap-2">
+        <button
+            v-for="amount in TOP_UP_AMOUNTS"
+            :key="amount"
+            class="topup-amount-btn"
+            :disabled="topUpLoading"
+            @click="confirmTopUp(amount)"
+        >
+          S/ {{ amount.toFixed(2) }}
+        </button>
+      </div>
+    </pv-dialog>
   </aside>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useIamStore, PLANS } from '../../../iam/application/iam.store.js'
+import { useBillingStore } from '../../../billing/application/billing-store.js'
 import { useI18n } from 'vue-i18n'
+import { useToast } from 'primevue/usetoast'
 
 
 const { t } = useI18n()
 const route  = useRoute()
 const router = useRouter()
 const iamStore = useIamStore()
+const billingStore = useBillingStore()
+const toast = useToast()
+
+const topUpVisible = ref(false)
+const topUpLoading = ref(false)
+const TOP_UP_AMOUNTS = [10, 20, 50]
+
+const userBalance = computed(() => {
+  const b = iamStore.currentUser?.balance
+  return typeof b === 'number' && Number.isFinite(b) ? b : null
+})
+const balanceFormatted = computed(() => (userBalance.value === null ? '—' : userBalance.value.toFixed(2)))
+
+onMounted(() => {
+  // Sesiones viejas en localStorage no tienen balance: recargar el perfil
+  if (iamStore.isTarifa && userBalance.value === null) iamStore.refreshProfile().catch(() => {})
+})
+
+async function confirmTopUp(amount) {
+  if (topUpLoading.value) return
+  topUpLoading.value = true
+  try {
+    await billingStore.topUpBalance({ userId: iamStore.currentUser?.id, amount })
+    topUpVisible.value = false
+    toast.add({ severity: 'success', summary: t('common.success'), detail: t('nav.topUpSuccess'), life: 3000 })
+  } catch {
+    toast.add({ severity: 'error', summary: t('common.error'), detail: t('nav.topUpError'), life: 3000 })
+  } finally {
+    topUpLoading.value = false
+  }
+}
 
 const plan = computed(() => iamStore.currentUser?.plan || PLANS.TARIFA)
 
@@ -153,6 +212,68 @@ function logout() {
 }
 
 .sidebar-logout:hover { color: #FF8A80; }
+
+.sidebar-balance {
+  margin-top: 1rem;
+  padding: 0.75rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.balance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.balance-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.balance-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.sidebar-topup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--color-primary-brand);
+  color: var(--color-neutral-dark);
+  border: none;
+  border-radius: var(--radius-max);
+  cursor: pointer;
+}
+
+.topup-amount-btn {
+  flex: 1;
+  padding: 0.75rem;
+  font-weight: 700;
+  font-size: 1rem;
+  background: var(--color-primary-brand);
+  color: var(--color-neutral-dark);
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+}
+
+.topup-amount-btn:disabled,
+.sidebar-topup:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
 </style>
 <style scoped>
 @media (max-width: 600px) {
@@ -162,5 +283,6 @@ function logout() {
   .sidebar-section-label { width: 100%; }
   .sidebar-link { padding: 8px; margin: 0; }
   .sidebar-logout { margin-top: 8px; }
+  .sidebar-balance { margin-top: 8px; padding: 8px 12px; }
 }
 </style>

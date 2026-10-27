@@ -5,6 +5,7 @@
       "name": "Plan Tarifa",
       "type": "PAY_PER_USE",
       "price": 0,
+      "pricePerKm": 0.29,
       "currency": "PEN",
       "description": "Costo por el recorrido que hayas hecho",
       "features": [
@@ -39,6 +40,51 @@
       "startDate": "2026-10-25T16:08:08.361Z",
       "status": "ACTIVE",
       "id": 1
+    },
+    {
+      "userId": 2,
+      "planId": 1,
+      "planType": "PAY_PER_USE",
+      "price": 0,
+      "startDate": "2026-10-27T02:25:55.435Z",
+      "status": "ACTIVE",
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "planId": 2,
+      "planType": "MONTHLY",
+      "price": 30,
+      "startDate": "2026-10-27T06:58:24.555Z",
+      "status": "ACTIVE",
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "planId": 1,
+      "planType": "PAY_PER_USE",
+      "price": 0,
+      "startDate": "2026-10-27T06:58:30.243Z",
+      "status": "ACTIVE",
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "planId": 2,
+      "planType": "MONTHLY",
+      "price": 30,
+      "startDate": "2026-10-27T06:58:39.769Z",
+      "status": "ACTIVE",
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "planId": 1,
+      "planType": "PAY_PER_USE",
+      "price": 0,
+      "startDate": "2026-10-27T06:58:44.923Z",
+      "status": "ACTIVE",
+      "id": 6
     }
   ],
   "payments": [
@@ -50,6 +96,87 @@
       "isAutomatic": false,
       "createdAt": "2026-10-25T16:08:08.432Z",
       "id": 1
+    },
+    {
+      "subscriptionId": 2,
+      "amount": 0,
+      "currency": "PEN",
+      "status": "COMPLETED",
+      "isAutomatic": false,
+      "createdAt": "2026-10-27T02:25:55.464Z",
+      "id": 2
+    },
+    {
+      "subscriptionId": null,
+      "tripId": "TRIP-1793083273840",
+      "userId": 1,
+      "type": "CHARGE",
+      "amount": 0.02,
+      "currency": "PEN",
+      "status": "COMPLETED",
+      "isAutomatic": true,
+      "createdAt": "2026-10-27T06:41:13.926Z",
+      "id": 3
+    },
+    {
+      "subscriptionId": 3,
+      "tripId": null,
+      "userId": null,
+      "type": null,
+      "amount": 30,
+      "currency": "PEN",
+      "status": "COMPLETED",
+      "isAutomatic": false,
+      "createdAt": "2026-10-27T06:58:24.587Z",
+      "id": 4
+    },
+    {
+      "subscriptionId": 4,
+      "tripId": null,
+      "userId": null,
+      "type": null,
+      "amount": 0,
+      "currency": "PEN",
+      "status": "COMPLETED",
+      "isAutomatic": false,
+      "createdAt": "2026-10-27T06:58:30.278Z",
+      "id": 5
+    },
+    {
+      "subscriptionId": 5,
+      "tripId": null,
+      "userId": null,
+      "type": null,
+      "amount": 30,
+      "currency": "PEN",
+      "status": "COMPLETED",
+      "isAutomatic": false,
+      "createdAt": "2026-10-27T06:58:39.801Z",
+      "id": 6
+    },
+    {
+      "subscriptionId": 6,
+      "tripId": null,
+      "userId": null,
+      "type": null,
+      "amount": 0,
+      "currency": "PEN",
+      "status": "COMPLETED",
+      "isAutomatic": false,
+      "createdAt": "2026-10-27T06:58:44.954Z",
+      "id": 7
+    },
+    {
+      "subscriptionId": 4,
+      "tripId": "TRIP-1793085555688",
+      "userId": 1,
+      "type": "CHARGE",
+      "amount": 0.01,
+      "currency": "PEN",
+      "status": "COMPLETED",
+      "isAutomatic": true,
+      "createdAt": "2026-10-27T07:19:15.750Z",
+      "id": 8
     }
   ],
   "paymentMethods": [
@@ -59,6 +186,41 @@
       "token": "****2777",
       "isDefault": true,
       "id": 1
+    },
+    {
+      "userId": 2,
+      "type": "CARD",
+      "token": "****6723",
+      "isDefault": true,
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "type": "CARD",
+      "token": "****7192",
+      "isDefault": true,
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "type": "CARD",
+      "token": "****6729",
+      "isDefault": true,
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "type": "CARD",
+      "token": "****3950",
+      "isDefault": true,
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "type": "CARD",
+      "token": "****4415",
+      "isDefault": true,
+      "id": 6
     }
   ],
   "users": [
@@ -69,6 +231,7 @@
       "username": "Usuario Demo",
       "phoneNumber": "",
       "plan": "tarifa",
+      "balance": 49.97,
       "role": "USER",
       "location": "Lima"
     },
@@ -78,13 +241,15 @@
       "password": "BiciGO123!",
       "username": "Operador Demo",
       "phoneNumber": "",
-      "plan": "pro",
+      "plan": "tarifa",
+      "balance": 50,
       "role": "OPERATOR",
       "location": "Lima"
     }
   ],
   "trips": [
     {
+      "id": 1,
       "tripId": "TRIP-001",
       "userId": "USER-001",
       "bicycleId": "BIKE-001",
@@ -95,6 +260,7 @@
       "totalCost": 9
     },
     {
+      "id": 2,
       "tripId": "TRIP-002",
       "userId": "USER-002",
       "bicycleId": "BIKE-002",
@@ -103,10 +269,55 @@
       "distanceKm": 1.8,
       "status": "IN_PROGRESS",
       "totalCost": 0
+    },
+    {
+      "id": 3,
+      "tripId": "TRIP-1793083247831",
+      "userId": 1,
+      "bicycleId": "BIKE-0234",
+      "startedAt": "2026-10-27T06:40:47.832Z",
+      "finishedAt": "2026-10-27T06:40:47.861Z",
+      "distanceKm": 0,
+      "status": "FINISHED",
+      "totalCost": 0
+    },
+    {
+      "id": 4,
+      "tripId": "TRIP-1793083254812",
+      "userId": 1,
+      "bicycleId": "BIKE-0234",
+      "startedAt": "2026-10-27T06:40:54.812Z",
+      "finishedAt": "2026-10-27T06:40:54.844Z",
+      "distanceKm": 0,
+      "status": "FINISHED",
+      "totalCost": 0
+    },
+    {
+      "id": 5,
+      "tripId": "TRIP-1793083273840",
+      "userId": 1,
+      "bicycleId": "BIKE-0234",
+      "startedAt": "2026-10-27T06:41:13.840Z",
+      "finishedAt": "2026-10-27T06:41:13.862Z",
+      "distanceKm": 0.07,
+      "status": "FINISHED",
+      "totalCost": 0.02
+    },
+    {
+      "id": 6,
+      "tripId": "TRIP-1793085555688",
+      "userId": 1,
+      "bicycleId": "BIKE-0234",
+      "startedAt": "2026-10-27T07:19:15.688Z",
+      "finishedAt": "2026-10-27T07:19:15.718Z",
+      "distanceKm": 0.03,
+      "status": "FINISHED",
+      "totalCost": 0.01
     }
   ],
   "qrValidations": [
     {
+      "id": 1,
       "validationId": "QRV-001",
       "tripId": "TRIP-001",
       "bicycleId": "BIKE-001",

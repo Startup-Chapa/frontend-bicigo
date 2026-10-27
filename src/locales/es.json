@@ -9,7 +9,21 @@
     "toggleLanguage": "Cambiar idioma",
     "notifications": "Notificaciones",
     "newNotifications": "Hay notificaciones nuevas",
-    "userMenu": "Menú de usuario de {name}"
+    "userMenu": "Menú de usuario de {name}",
+    "balance": "Saldo",
+    "topUp": "Recargar",
+    "topUpTitle": "Recargar saldo",
+    "topUpDesc": "Elige un monto para añadir a tu saldo.",
+    "topUpSuccess": "Saldo recargado correctamente.",
+    "topUpError": "No se pudo completar la recarga."
+  },
+  "tripMap": {
+    "calculatedAutomatically": "calculado automáticamente.",
+    "balance": "Saldo",
+    "tripCost": "Costo del viaje",
+    "insufficientBalance": "Saldo insuficiente para finalizar el viaje.",
+    "insufficientBalanceHint": "Recarga tu saldo para completar la devolución.",
+    "chargeError": "El viaje finalizó, pero no se pudo registrar el cobro. Inténtalo de nuevo."
   },
   "footer": {
     "terms": "Términos y condiciones",
