@@ -34,7 +34,8 @@ export class TripManagementApi extends BaseApi {
     }
 
     updateTrip(resource) {
-        return this.#tripsEndpoint.update(resource.tripId, resource);
+        // json-server indexa por el campo "id" numérico, no por tripId
+        return this.#tripsEndpoint.update(resource.id ?? resource.tripId, resource);
     }
 
     deleteTrip(id) {

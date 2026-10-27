@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import useTripManagementStore from '../../application/trip-management.store.js'
 import { useIamStore } from '../../../iam/application/iam.store.js'
+import { useBillingStore } from '../../../billing/application/billing-store.js'
 import { Trip } from '../../domain/model/trip.entity.js'
 import { QRValidation } from '../../domain/model/qr-validation.entity.js'
 
@@ -11,6 +12,7 @@ const { t } = useI18n()
 const router = useRouter()
 const tripStore = useTripManagementStore()
 const iamStore = useIamStore()
+const billingStore = useBillingStore()
 
 // Pasos: 1 = Escaneo QR, 2 = Mapa Google Maps en curso, 3 = Confirmar Devolución
 const currentStep = ref(2)
@@ -45,10 +47,30 @@ const formattedTime = computed(() => {
   return `${m}:${s}`
 })
 
+// Tarifa por km desde el plan PAY_PER_USE (fallback 0.29 si la API no responde)
+const pricePerKm = computed(() => billingStore.pricePerKm || 0.29)
+
+const estimatedCost = computed(() => {
+  if (isPremium.value) return 0
+  return Number((distanceKm.value * pricePerKm.value).toFixed(2))
+})
+
 const calculatedCost = computed(() => {
   if (isPremium.value) return '0,00'
-  return (distanceKm.value * 0.29).toFixed(2).replace('.', ',')
+  return estimatedCost.value.toFixed(2).replace('.', ',')
 })
+
+// Saldo del usuario (null hasta que llegue el perfil)
+const userBalance = computed(() => {
+  const b = iamStore.currentUser?.balance
+  return typeof b === 'number' && Number.isFinite(b) ? b : null
+})
+const balanceLoaded = computed(() => userBalance.value !== null)
+const insufficientBalance = computed(() =>
+    !isPremium.value && balanceLoaded.value && estimatedCost.value > 0 && userBalance.value < estimatedCost.value
+)
+const finishing = ref(false)
+const chargeError = ref(false)
 
 // Cargar script oficial de Google Maps si no existe
 const loadGoogleMapsScript = () => {
@@ -201,6 +223,11 @@ onMounted(async () => {
     elapsedSeconds.value++
   }, 1000)
 
+  // Cargar planes (tarifa por km), viajes y saldo del usuario
+  if (!billingStore.plans.length) billingStore.fetchPlans().catch(() => {})
+  if (!tripStore.tripsLoaded) tripStore.fetchTrips().catch(() => {})
+  if (iamStore.isTarifa && userBalance.value === null) iamStore.refreshProfile().catch(() => {})
+
   // Iniciar mapa en el siguiente ciclo del DOM
   setTimeout(() => {
     initMap()
@@ -235,15 +262,51 @@ const simulateQrScan = async () => {
   setTimeout(() => initMap(), 100)
 }
 
-const completeReturn = async () => {
-  const activeTrip = tripStore.activeTrips[0] || new Trip({
+// Garantiza que exista un viaje real en la BD antes de finalizar
+// (el PUT de finishTrip fallaría con 404 sobre un viaje inventado).
+const ensureActiveTrip = async () => {
+  if (!tripStore.tripsLoaded) {
+    try { await tripStore.fetchTrips() } catch {}
+  }
+  const userId = iamStore.currentUser?.id
+  const existing = tripStore.activeTrips.find((tr) => String(tr.userId) === String(userId))
+  if (existing) return existing
+
+  const trip = new Trip({
     tripId: 'TRIP-' + Date.now(),
-    userId: iamStore.currentUser?.id || '1',
-    bicycleId: bikeId.value,
-    status: 'IN_PROGRESS'
+    userId: userId ?? '1',
+    bicycleId: bikeId.value
   })
-  await tripStore.finishTrip(activeTrip, distanceKm.value, 0.29, isPremium.value)
-  router.push({ name: 'trip-management-trips' })
+  trip.startTrip()
+  return tripStore.addTrip(trip)
+}
+
+const completeReturn = async () => {
+  if (finishing.value || insufficientBalance.value) return
+  finishing.value = true
+  chargeError.value = false
+  try {
+    const activeTrip = await ensureActiveTrip()
+    if (!activeTrip) throw new Error('NO_ACTIVE_TRIP')
+
+    const finishedTrip = await tripStore.finishTrip(activeTrip, distanceKm.value, pricePerKm.value, isPremium.value)
+
+    if (!isPremium.value && finishedTrip.totalCost > 0) {
+      const subscriptionId = await billingStore.findPayPerUseSubscription(iamStore.currentUser?.id).then((s) => s?.id ?? null)
+      await billingStore.chargeTrip({
+        userId: iamStore.currentUser?.id,
+        tripId: finishedTrip.tripId,
+        amount: finishedTrip.totalCost,
+        subscriptionId
+      })
+    }
+    router.push({ name: 'trip-management-trips' })
+  } catch (e) {
+    if (e?.message === 'INSUFFICIENT_BALANCE') await iamStore.refreshProfile().catch(() => {})
+    chargeError.value = true
+  } finally {
+    finishing.value = false
+  }
 }
 </script>
 
@@ -340,11 +403,19 @@ const completeReturn = async () => {
             <div class="flex justify-content-between align-items-end">
               <div class="text-xs text-300">
                 <p class="m-0 font-medium">{{ isPremium ? 'Plan Pro Mensual' : 'Plan Tarifa Estándar' }}</p>
-                <p class="m-0 text-400">€0,29/km calculado automáticamente.</p>
+                <p v-if="!isPremium" class="m-0 text-400">
+                  S/ {{ pricePerKm.toFixed(2).replace('.', ',') }}/km {{ $t('tripMap.calculatedAutomatically') }}
+                </p>
               </div>
               <div class="text-2xl font-bold text-green-400">
-                €{{ calculatedCost }}
+                S/ {{ calculatedCost }}
               </div>
+            </div>
+            <div v-if="!isPremium" class="flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid rgba(255,255,255,0.15);">
+              <span class="text-xs text-300">{{ $t('tripMap.balance') }}</span>
+              <span class="text-sm font-bold" :class="insufficientBalance ? 'text-red-400' : 'text-white'">
+                S/ {{ userBalance !== null ? userBalance.toFixed(2) : '—' }}
+              </span>
             </div>
           </div>
 
@@ -354,6 +425,12 @@ const completeReturn = async () => {
             <div class="capacity-bar">
               <div class="capacity-fill" style="width: 70%;"></div>
             </div>
+          </div>
+
+          <div v-if="insufficientBalance" class="bg-amber-50 border-round p-3 text-sm text-amber-900">
+            <div class="font-bold mb-1">{{ $t('tripMap.insufficientBalance') }}</div>
+            <div>{{ $t('tripMap.tripCost') }}: S/ {{ estimatedCost.toFixed(2) }} · {{ $t('tripMap.balance') }}: S/ {{ userBalance.toFixed(2) }}</div>
+            <div class="text-xs mt-1">{{ $t('tripMap.insufficientBalanceHint') }}</div>
           </div>
 
           <button class="btn-finish-trip" @click="currentStep = 3">
@@ -375,7 +452,13 @@ const completeReturn = async () => {
         <div class="font-bold text-900 mb-1">Hacer o subir foto</div>
         <div class="text-xs text-500">Debe verse la bici correctamente anclada</div>
       </div>
-      <button class="btn-primary-brand w-20rem mx-auto block mb-3" @click="completeReturn">
+      <div v-if="insufficientBalance" class="bg-amber-50 border-round p-3 mb-3 text-sm text-amber-900 text-center">
+        {{ $t('tripMap.insufficientBalance') }} — {{ $t('tripMap.insufficientBalanceHint') }}
+      </div>
+      <div v-if="chargeError" class="bg-red-50 border-round p-3 mb-3 text-sm text-red-700 text-center">
+        {{ $t('tripMap.chargeError') }}
+      </div>
+      <button class="btn-primary-brand w-20rem mx-auto block mb-3" :disabled="insufficientBalance || finishing" @click="completeReturn">
         Finalizar viaje
       </button>
       <button class="btn-link" @click="currentStep = 2">Volver al mapa</button>
@@ -525,6 +608,10 @@ const completeReturn = async () => {
   padding: 0.85rem 1.5rem;
   border-radius: 0.75rem;
   cursor: pointer;
+}
+.btn-primary-brand:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .qr-scanner-box {
   width: 260px;

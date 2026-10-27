@@ -78,7 +78,7 @@ const useTripManagementStore = defineStore('trip-management', () => {
     }
 
     function deleteTrip(trip) {
-        return tripManagementApi.deleteTrip(trip.tripId).then(() => {
+        return tripManagementApi.deleteTrip(trip.id ?? trip.tripId).then(() => {
             const index = trips.value.findIndex(item => String(item.tripId) === String(trip.tripId));
             if (index !== -1) trips.value.splice(index, 1);
         }).catch(error => {

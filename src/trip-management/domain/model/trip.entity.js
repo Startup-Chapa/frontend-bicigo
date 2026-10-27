@@ -6,6 +6,7 @@
 export class Trip {
     /**
      * @param {Object} params - Entity attributes.
+     * @param {?number} [params.id=null] - Database identifier assigned by the server.
      * @param {?string} [params.tripId=null] - Trip identifier.
      * @param {string} [params.userId=''] - User identifier.
      * @param {string} [params.bicycleId=''] - Bicycle identifier.
@@ -16,6 +17,7 @@ export class Trip {
      * @param {number} [params.totalCost=0] - Calculated trip cost.
      */
     constructor({
+        id = null,
         tripId = null,
         userId = '',
         bicycleId = '',
@@ -25,6 +27,7 @@ export class Trip {
         status = 'PENDING',
         totalCost = 0
     }) {
+        this.id = id;
         this.tripId = tripId;
         this.userId = userId;
         this.bicycleId = bicycleId;
